@@ -1,5 +1,10 @@
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+
+    --theme: #3383FF;
+    --theme-light: #33A2FF;
+    --error: #ff2828;
 }
 
 body {
