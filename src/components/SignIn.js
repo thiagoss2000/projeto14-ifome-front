@@ -68,7 +68,7 @@ export default function SignIn() {
           Enter
         </button>
       </form>
-      <StyledLink to={"/"}>Register new account</StyledLink>
+      <StyledLink to={"/sign-up"}>Register new account</StyledLink>
       {valid ? <></> : <p>failed to login, try again</p>}
     </Main>
   )
