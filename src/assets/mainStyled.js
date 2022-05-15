@@ -25,13 +25,22 @@ h1 {
   font-size: 32px;
   color: #ffffff;
 }
+header p {
+  position: absolute;
+  right: 46px;
+  top: 38px;
+}
 .icon {
   margin-inline: 10px;
   height: 40px;
   color: white;
 }
 .shopping {
+  margin-inline: 15px;
+  margin-top: 20px;
   display: flex;
+  justify-content: center;
+  overflow: auto;
 }
 .shopping div {
   width: 100px;
@@ -48,6 +57,8 @@ h1 {
   text-align: center;
 }
 button {
+  margin-left: 50%;
+  transform: translate(-50%, 0);
   background-color: azure;
   color: #000;
   margin-block: 10px;
@@ -57,11 +68,16 @@ button {
   cursor: pointer;
 }
 .category {
-  //background-color: antiquewhite;
+  margin-inline: 15px;
+  padding-inline: 20px;
+  border-radius: 15px;
+  background-color: antiquewhite;
+  height: 240px !important;
   margin-top: 20px;
   height: 180px;
   display: flex;
   position: relative;
+  overflow: auto;
 }
 h2 {
   font-size: 20px;
@@ -78,6 +94,17 @@ h2 {
   height: 100px;
   width: 160px;
   border-radius: 10px;
+}
+.products h3 {
+  margin-inline: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #252525;
+}
+.products p {
+  margin-top: 5px;
+  margin-inline: 10px;
+  color: #252525;
 }
 `
 export const Confirm = styled.img`
