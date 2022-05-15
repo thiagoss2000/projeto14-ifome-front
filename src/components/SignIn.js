@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
-import { Main, StyledLink } from "../assets/styled"
+import { Main, StyledLink } from "../assets/signInStyled"
+
 
 export default function SignIn() {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export default function SignIn() {
     { type: "email", placeholder: "E-mail" },
     { type: "password", placeholder: "Password" },
   ]
-  
+
   async function submitForm(e) {
     e.preventDefault()
     setLoading(true)
@@ -24,13 +25,16 @@ export default function SignIn() {
       password: e.target[1].value,
     }
 
-    try {
-      await axios.post(URI, body)
+    axios.post(URI, body)
+    .then((res) => {
+      sessionStorage.setItem('user', res.data.user_id);
+      sessionStorage.setItem('token', res.data.token);
       navigate("/main")
-    } catch {
+    }) 
+    .catch((e) => {
       setValid(false)
       setLoading(false)
-    }
+    })
   }
 
   function showPassword(e) {
