@@ -7,10 +7,17 @@ export const Main = styled.main`
 .MenuUser {
   top: 60px;
   position: absolute;
-  background-color: azure;
+  background-color: #dddddd;
   width: 200px;
-  height: 100px;
+  height: 50px;
   z-index: 2;
+}
+.MenuUser h2 {
+  width: 100%;
+  margin-top: 4px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
 }
 header {
   position: relative;
@@ -34,6 +41,7 @@ header p {
   margin-inline: 10px;
   height: 40px;
   color: white;
+  cursor: pointer;
 }
 .shopping {
   margin-inline: 15px;
@@ -59,19 +67,20 @@ header p {
 button {
   margin-left: 50%;
   transform: translate(-50%, 0);
-  background-color: azure;
+  background-color: var(--theme);
   color: #000;
   margin-block: 10px;
   width: 80vw;
   height: 40px;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
 }
 .category {
   margin-inline: 15px;
   padding-inline: 20px;
   border-radius: 15px;
-  background-color: antiquewhite;
+  background-color: #dddddd;
   height: 240px !important;
   margin-top: 20px;
   height: 180px;
