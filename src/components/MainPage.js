@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import { Main, Confirm } from "../assets/mainStyled"
@@ -77,7 +77,7 @@ export default function MainPage() {
           <img onClick={() => setUserMenu(true)} className="icon" src={userImg} alt="user"></img>
           <h1>iFome</h1>
           <p>{numItens}</p>
-          <img className="icon" src={shoppingImg} alt="shpping"></img>
+          <Link to={"/checkout"}><img className="icon" src={shoppingImg} alt="shpping"></img></Link>
         </header>
         <div className="body" onClick={() => setUserMenu(false)}>
           <div className="shopping">
