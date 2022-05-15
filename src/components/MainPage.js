@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios";
+import axios from "axios"
+
 import { Main, Confirm } from "../assets/mainStyled"
+
 import userImg from "../icons/user.png"
 import shoppingImg from "../icons/shopping.png"
 import confirm from "../icons/confirm.png"
