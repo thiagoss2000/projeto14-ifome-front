@@ -19,7 +19,7 @@ export default function MainPage() {
   const user_id = sessionStorage.user;
   const token = sessionStorage.token;
 
-  const category = ['fast-food', 'saladas'];
+  const category = ['fast-food', 'saladas', 'almocos'];
 
   useEffect(() => {
     axios.get(`${URL}/products`, {headers: {'user': user_id}})
