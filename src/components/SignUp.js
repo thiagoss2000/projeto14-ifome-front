@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 
-export default function SignIn() {
+export default function SignUp() {
   const navigate = useNavigate()
   const [valid, setValid] = useState(true) // check if input data is valid
   const [show, setShow] = useState(false) // show password or not
