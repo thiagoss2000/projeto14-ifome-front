@@ -4,20 +4,22 @@ import axios from "axios"
 import styled from "styled-components"
 
 export default function Checkout() {
-  const [success, setSuccess] = useState(false)
-  const [checkout, setCheckout] = useState({})
+  const [success, setSuccess] = useState({ status: false, type: "confirm" }) // axios request status
+  const [checkout, setCheckout] = useState({}) // obj with data from checkout
 
   const navigate = useNavigate()
-  // const config = { Authorization: `Bearer ${user.token}` } !FIX ME PLEASE
-  const config = { Authorization: `Bearer ...` }
+  const token = sessionStorage.token
+  const config = { Authorization: `Bearer ${token}` }
 
+  // get obj with data from checkout
   useEffect(() => {
     const URI = "http://localhost:5000/checkout"
     const promisse = axios.get(URI, { headers: config })
-    promisse.then((response) => setCheckout(response))
+    promisse.then((response) => setCheckout(response.data))
     promisse.catch((e) => console.error(e))
   }, [])
 
+  // return to main page
   function returnMainPage() {
     const confirm = window.confirm("Do you want to return to the main page?")
     if (confirm) {
@@ -25,15 +27,28 @@ export default function Checkout() {
     }
   }
 
+  // confirm checkout
   function confirmCheckout() {
     const URI = `http://localhost:5000/checkout/${checkout._id}`
-    const promisse = axios.post(URI, { headers: config })
-    promisse.then((response) => setSuccess(true))
+    const promisse = axios.post(URI, {}, { headers: config })
+    promisse.then((response) => setSuccess({ ...success, status: true }))
     promisse.catch((e) => console.error(e))
   }
 
+  // delete checkout
+  function deleteCheckout() {
+    const confirm = window.confirm("Do you want to delete this checkout?")
+    if (confirm) {
+      const URI = `http://localhost:5000/checkout/${checkout._id}`
+      const promisse = axios.delete(URI, { headers: config })
+      promisse.then((response) => setSuccess({ status: true, type: "delete" }))
+      promisse.catch((e) => console.error(e))
+    }
+  }
+
+  // get total price of checkout
   let total = 0
-  checkout.shopping?.forEach((p) => (total += parseFloat(p.value)))
+  checkout.shpping?.forEach((p) => (total += parseFloat(p.price)))
 
   return (
     <Main>
@@ -42,29 +57,50 @@ export default function Checkout() {
         <ion-icon name="arrow-back-outline" onClick={returnMainPage}></ion-icon>
       </Header>
       <h1>Checkout</h1>
+
+      {/* products section */}
       <section>
-        {checkout.shopping?.map((p) => {
+        {checkout.shpping?.map((p, i) => {
           return (
-            <Product>
-              <img src={p.img} alt="comida"></img>
-              <p>{p.title}</p>
-              <var>R$ {p.value}</var>
+            <Product key={`${i} - ${p._id}`}>
+              <img src={p.image} alt="comida"></img>
+              <p>{p.name}</p>
+              <var>R$ {p.price.toFixed(2)}</var>
             </Product>
           )
         })}
       </section>
+
       <h4>Total: R${total.toFixed(2)}</h4>
+
+      {/* buttom to confirm checkout */}
       <button
-        onClick={checkout.shopping ? confirmCheckout : null}
-        style={checkout.shopping ? {} : { opacity: 0.6, cursor: "auto" }}
+        onClick={checkout.shpping ? confirmCheckout : null}
+        style={checkout.shpping ? {} : { opacity: 0.6, cursor: "auto" }}
       >
         Confirm
       </button>
-      {success ? (
+
+      {/* buttom to delete checkout */}
+      <button
+        className="deleteButton"
+        onClick={checkout.shpping ? deleteCheckout : null}
+        style={checkout.shpping ? {} : { opacity: 0.6, cursor: "auto" }}
+      >
+        Delete Checkout
+      </button>
+
+      {/* success screen */}
+      {success.status ? (
         <Success>
-          <article>
+          <article style={success.type === "delete" ? { color: "var(--red)" } : {}}>
             Success!
-            <button onClick={() => navigate("/main")}>Return to Main Page</button>
+            <button
+              style={success.type === "delete" ? { backgroundColor: "var(--red)" } : {}}
+              onClick={() => navigate("/main")}
+            >
+              Return to Main Page
+            </button>
           </article>
         </Success>
       ) : (
@@ -114,8 +150,13 @@ const Main = styled.main`
     font-weight: 700;
 
     border-radius: 10px;
-    margin: 10px auto 25px;
+    margin: 10px auto;
     cursor: pointer;
+  }
+
+  .deleteButton {
+    margin: 10px auto 25px;
+    background-color: var(--red);
   }
 `
 
@@ -185,7 +226,7 @@ const Product = styled.article`
 `
 
 const Success = styled.section`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
 
