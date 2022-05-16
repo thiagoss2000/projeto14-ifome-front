@@ -13,7 +13,7 @@ export default function Checkout() {
 
   // get obj with data from checkout
   useEffect(() => {
-    const URI = "http://localhost:5000/checkout"
+    const URI = "https://projeto14.herokuapp.com/checkout"
     const promisse = axios.get(URI, { headers: config })
     promisse.then((response) => setCheckout(response.data))
     promisse.catch((e) => console.error(e))
@@ -29,7 +29,7 @@ export default function Checkout() {
 
   // confirm checkout
   function confirmCheckout() {
-    const URI = `http://localhost:5000/checkout/${checkout._id}`
+    const URI = `https://projeto14.herokuapp.com/checkout/${checkout._id}`
     const promisse = axios.post(URI, {}, { headers: config })
     promisse.then((response) => setSuccess({ ...success, status: true }))
     promisse.catch((e) => console.error(e))
@@ -39,7 +39,7 @@ export default function Checkout() {
   function deleteCheckout() {
     const confirm = window.confirm("Do you want to delete this checkout?")
     if (confirm) {
-      const URI = `http://localhost:5000/checkout/${checkout._id}`
+      const URI = `https://projeto14.herokuapp.com/checkout/${checkout._id}`
       const promisse = axios.delete(URI, { headers: config })
       promisse.then((response) => setSuccess({ status: true, type: "delete" }))
       promisse.catch((e) => console.error(e))

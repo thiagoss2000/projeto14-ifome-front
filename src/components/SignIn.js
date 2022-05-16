@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Main, StyledLink } from "../assets/signInStyled"
 
-
 export default function SignIn() {
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
@@ -18,23 +17,24 @@ export default function SignIn() {
   async function submitForm(e) {
     e.preventDefault()
     setLoading(true)
-    const URI = "http://localhost:5000/sign-in"
+    const URI = "https://projeto14.herokuapp.com/sign-in"
 
     const body = {
       email: e.target[0].value,
       password: e.target[1].value,
     }
 
-    axios.post(URI, body)
-    .then((res) => {
-      sessionStorage.setItem('user', res.data.user_id);
-      sessionStorage.setItem('token', res.data.token);
-      navigate("/main")
-    }) 
-    .catch((e) => {
-      setValid(false)
-      setLoading(false)
-    })
+    axios
+      .post(URI, body)
+      .then((res) => {
+        sessionStorage.setItem("user", res.data.user_id)
+        sessionStorage.setItem("token", res.data.token)
+        navigate("/main")
+      })
+      .catch((e) => {
+        setValid(false)
+        setLoading(false)
+      })
   }
 
   function showPassword(e) {
@@ -50,7 +50,7 @@ export default function SignIn() {
       <h1>iFome</h1>
       {/* <p>Sign In</p> */}
       <form onSubmit={(e) => submitForm(e)}>
-      {inputs.map((i) => {
+        {inputs.map((i) => {
           return (
             <input
               key={i.placeholder}

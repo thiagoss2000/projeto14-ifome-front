@@ -22,7 +22,7 @@ export default function SignUp() {
   function submitForm(e) {
     e.preventDefault()
     setLoading(true)
-    const URI = "http://localhost:5000/sign-up"
+    const URI = "https://projeto14.herokuapp.com/sign-up"
 
     if (e.target[2].value !== e.target[3].value) {
       setValid(false)
